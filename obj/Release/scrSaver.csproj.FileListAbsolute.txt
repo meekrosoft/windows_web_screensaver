@@ -1,0 +1,5 @@
+D:\work\scrSaver\bin\Release\scrSaver.exe
+D:\work\scrSaver\obj\Release\ResolveAssemblyReference.cache
+D:\work\scrSaver\obj\Release\scrSaver.Form1.resources
+D:\work\scrSaver\obj\Release\scrSaver.csproj.GenerateResource.Cache
+D:\work\scrSaver\obj\Release\scrSaver.exe

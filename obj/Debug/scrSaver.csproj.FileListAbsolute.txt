@@ -1,0 +1,9 @@
+D:\work\scrSaver\obj\Debug\scrSaver.exe
+D:\work\scrSaver\obj\Debug\scrSaver.pdb
+D:\work\scrSaver\bin\Debug\scrSaver.exe
+D:\work\scrSaver\bin\Debug\scrSaver.pdb
+D:\work\scrSaver\obj\Debug\ResolveAssemblyReference.cache
+D:\work\scrSaver\obj\Debug\scrSaver.Form1.resources
+D:\work\scrSaver\obj\Debug\scrSaver.csproj.GenerateResource.Cache
+D:\work\windows_web_screensaver\obj\Debug\scrSaver.exe
+D:\work\windows_web_screensaver\obj\Debug\scrSaver.pdb

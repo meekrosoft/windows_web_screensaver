@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="scrSaver">
+</Property><Property Name="Solution File" Value="D:\work\scrSaver\scrSaver.sln">
+</Property><Property Name="User Options File" Value="D:\work\scrSaver\scrSaver.suo">
+</Property><Property Name="Date" Value="Wednesday, December 30, 2009">
+</Property><Property Name="Time" Value="13:26 PM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="scrSaver.sln" Description="File successfully backed up as D:\work\scrSaver\Backup\scrSaver.sln">
+</Event><Event ErrorLevel="0" Project="" Source="scrSaver.suo" Description="File successfully backed up as D:\work\scrSaver\Backup\scrSaver.suo">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="scrSaver.csproj" Description="Project file successfully backed up as D:\work\scrSaver\Backup\scrSaver.csproj">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="scrSaver.csproj.user" Description="Project user file successfully backed up as D:\work\scrSaver\Backup\scrSaver.csproj.user">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="AssemblyInfo.cs" Description="File successfully backed up as D:\work\scrSaver\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="Form1.cs" Description="File successfully backed up as D:\work\scrSaver\Backup\Form1.cs">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="scrClass.cs" Description="File successfully backed up as D:\work\scrSaver\Backup\scrClass.cs">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="App.ico" Description="File successfully backed up as D:\work\scrSaver\Backup\App.ico">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="Form1.resx" Description="File successfully backed up as D:\work\scrSaver\Backup\Form1.resx">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="scrSaver.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="scrSaver" Source="scrSaver.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="scrSaver.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="scrSaver.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="scrSaver" Source="scrSaver.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
