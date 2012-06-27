@@ -5,3 +5,5 @@ TestResults/*
 LocalTestRun.testrunconfig
 Properties/
 _ReSharper.scrSaver/
+ScreensaverTests/%APPDATA%
+
