@@ -1,0 +1,7 @@
+/%APPDATA%
+obj/*
+TestResults/*
+*.vsmdi
+LocalTestRun.testrunconfig
+Properties/
+_ReSharper.scrSaver/

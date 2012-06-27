@@ -1,39 +1,28 @@
 using System;
 using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
-using System.Data;
 
-namespace scrSaver
+namespace ScreenSaver
 {
-	public class Form1 : System.Windows.Forms.Form
+	public class ScreensaverForm : System.Windows.Forms.Form
     {
-		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Timer newPageTimer;
 		private System.ComponentModel.IContainer components;
 		// Store the mouse coordinates
 		private Point mouseCoords;
 		// Store the number of displays
-		private int displayNum;
-        private WebBrowser webBrowser1;
-		// Random number that will change the position of the PictureBox
-		Random rand = new Random();
+		private int _thisDisplayIdId;
+        private WebBrowser _webBrowser;
+	    private UrlList _urlList = null;
 
-        private String[] pages = {
-                                   "http://news.google.com/",
-                                   "http://news.bbc.co.uk/",
-                                   "http://www.timesonline.co.uk/tol/news/"
-                                 };
-        private int pageIndex = 0;
-
-
-		// Accept one argurment - the number of displays
-		public Form1(int display)
+		internal ScreensaverForm(int thisDisplayId, UrlList urlList)
 		{
 			InitializeComponent();
 			// Assign the number to an accessible variable
-			displayNum = display;
+            _thisDisplayIdId = thisDisplayId;
+		    _urlList = urlList;
 		}
+
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -54,30 +43,30 @@ namespace scrSaver
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.newPageTimer = new System.Windows.Forms.Timer(this.components);
+            this._webBrowser = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
-            // timer1
+            // newPageTimer
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 20000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.newPageTimer.Enabled = true;
+            this.newPageTimer.Interval = 20000;
+            this.newPageTimer.Tick += new System.EventHandler(this.newPageTimerTick);
             // 
-            // webBrowser1
+            // _webBrowser
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(400, 400);
-            this.webBrowser1.TabIndex = 1;
+            this._webBrowser.Location = new System.Drawing.Point(0, 0);
+            this._webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this._webBrowser.Name = "_webBrowser";
+            this._webBrowser.Size = new System.Drawing.Size(480, 462);
+            this._webBrowser.TabIndex = 1;
             // 
             // Form1
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(292, 273);
-            this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this._webBrowser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.ShowInTaskbar = false;
@@ -90,14 +79,17 @@ namespace scrSaver
 
 		private void Form1_Load(object sender, System.EventArgs e)
 		{
-			// Set the bounds of the form, fill all the screen
-			this.Bounds = Screen.AllScreens[displayNum].Bounds;
-            webBrowser1.Bounds = Screen.AllScreens[displayNum].Bounds;
-            webBrowser1.ScriptErrorsSuppressed = true;
-            webBrowser1.PreviewKeyDown += new PreviewKeyDownEventHandler(webBrowser1_PreviewKeyDown);
-            webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowser1_DocumentCompleted);
+            // Set the bounds of the form, fill all the screen
+			this.Bounds = Screen.AllScreens[_thisDisplayIdId].Bounds;
+		    _webBrowser.Left = 0;
+		    _webBrowser.Top = 0;
+		    _webBrowser.Width = this.Width;
+		    _webBrowser.Height = this.Height;
+            _webBrowser.ScriptErrorsSuppressed = true;
+            _webBrowser.PreviewKeyDown += new PreviewKeyDownEventHandler(webBrowser1_PreviewKeyDown);
+            _webBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowser1_DocumentCompleted);
 
-            nextPage();
+            displayNextPage();
  			// The form should be on top of all
 			TopMost = true;
 			// We don't need the cursor
@@ -106,7 +98,7 @@ namespace scrSaver
 
         void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            HtmlDocument doc = webBrowser1.Document;
+            HtmlDocument doc = _webBrowser.Document;
             doc.MouseMove += new HtmlElementEventHandler(doc_MouseMove);
         }
 
@@ -133,18 +125,16 @@ namespace scrSaver
             this.Close();
         }
 
-		// Every 20 seconds...
-		private void timer1_Tick(object sender, System.EventArgs e)
+		// Triggered by timer component every 20 seconds...
+		private void newPageTimerTick(object sender, System.EventArgs e)
 		{
-            nextPage();
+		    displayNextPage();
 		}
 
-        private void nextPage()
+        private void displayNextPage()
         {
-            Uri uri = new Uri(pages[pageIndex]);
-            webBrowser1.Navigate(uri);
-            pageIndex++;
-            pageIndex = pageIndex % pages.Length;
+            Uri uri = new Uri(_urlList.getNext());
+            _webBrowser.Navigate(uri);
         }
 	}
 }
