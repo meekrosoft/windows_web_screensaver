@@ -1,7 +1,6 @@
 /%APPDATA%
 obj/*
 TestResults/*
-*.vsmdi
 LocalTestRun.testrunconfig
 _ReSharper.scrSaver/
 ScreensaverTests/%APPDATA%
