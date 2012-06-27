@@ -3,5 +3,5 @@ This is a simple windows screensaver for cycling through web pages.
 It is based on the tutorial at Geekpedia:
 http://www.geekpedia.com/tutorial65_How-to-make-a-screen-saver.html
 
-I have just added a System.Windows.Forms.WebBrowser to the form, resized it at launch and added the timer and listener events.
+It now supports multiple monitors
 
