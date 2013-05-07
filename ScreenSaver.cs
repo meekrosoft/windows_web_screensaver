@@ -1,8 +1,9 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
-namespace ScreenSaver
+namespace WebScreenSaver
 {
     public class ScreenSaver
     {
@@ -33,9 +34,21 @@ namespace ScreenSaver
         private static UrlList CreateUrlList()
         {
             var urlList = new UrlList();
-            urlList.addUrl("http://www.bbc.co.uk/news/");
-            urlList.addUrl("https://www.google.com/news?vanilla=1");
-            urlList.addUrl("http://news.ycombinator.com/");
+
+            string configFilePath = Path.Combine(Assembly.GetCallingAssembly().Location, "url.txt");
+            if (File.Exists(configFilePath))
+            {
+                var urls = File.ReadAllLines(configFilePath);
+                foreach (var url in urls)
+                {
+                    if (!string.IsNullOrEmpty(url.Trim()))
+                        urlList.Add(url);
+                }
+            }
+            else
+            {
+                urlList.Add(@"http://whatthecommit.com/");
+            }
             return urlList;
         }
 
