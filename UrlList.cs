@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace ScreenSaver
 {
@@ -7,13 +6,13 @@ namespace ScreenSaver
     {
         private const string _url = "http://news.ycombinator.com";
         private readonly List<string> _urlList = new List<string>();
-        private int _listIndex = 0;
+        private int _listIndex;
 
         public string get()
         {
             return _urlList[_listIndex];
         }
-        
+
         public string getNext()
         {
             if (_urlList.Count == 0)

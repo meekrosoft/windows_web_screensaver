@@ -1,34 +1,20 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScreenSaver;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ScreenSaver
 {
     /// <summary>
-    /// Summary description for UrlListTests
+    ///     Summary description for UrlListTests
     /// </summary>
     [TestClass]
     public class UrlListTests
     {
-        UrlList list = new UrlList();
-        public UrlListTests()
-        {
-        }
-
-        private TestContext testContextInstance;
+        private readonly UrlList list = new UrlList();
 
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
-        }
+        ///     Gets or sets the test context which provides
+        ///     information about and functionality for the current test run.
+        /// </summary>
+        public TestContext TestContext { get; set; }
 
         #region Additional test attributes
 
@@ -54,7 +40,6 @@ namespace ScreenSaver
 
         #endregion
 
-        
         [TestMethod]
         public void GIVEN_new_list_WHEN_getNext_called_THEN_returns_HackerNews_url()
         {
@@ -63,7 +48,7 @@ namespace ScreenSaver
 
         [TestMethod]
         public void GIVEN_list_with_one_url_WHEN_getNext_called_THEN_returns_correct_url()
-        {   
+        {
             list.addUrl("http://www.slb.com");
             Assert.AreEqual("http://www.slb.com", list.getNext());
         }
