@@ -133,9 +133,10 @@ namespace ScreenSaver
 
         private void displayNextPage()
         {
-            Uri uri = new Uri(_urlList.getNext());
+            var uri = new Uri(_urlList.getNext());
             _webBrowser.Navigate(uri);
-            _webBrowser.Refresh();
+            if (_webBrowser.Url == uri)
+                _webBrowser.Refresh();
         }
 	}
 }
