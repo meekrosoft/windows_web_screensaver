@@ -135,6 +135,7 @@ namespace ScreenSaver
         {
             Uri uri = new Uri(_urlList.getNext());
             _webBrowser.Navigate(uri);
+            _webBrowser.Refresh();
         }
 	}
 }
