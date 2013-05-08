@@ -42,7 +42,7 @@ namespace WebScreenSaver
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.OnFormLoad);
             this.ResumeLayout(false);
         }
 

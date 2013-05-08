@@ -15,6 +15,7 @@ namespace WebScreenSaver
         // Store the mouse coordinates
         private Point _mouseCoords;
         private Timer _newPageTimer;
+        private bool _closeWhenMouseMove = false;
 
         internal ScreensaverForm(int thisDisplayId, UrlList urlList)
         {
@@ -36,7 +37,7 @@ namespace WebScreenSaver
             base.Dispose(disposing);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void OnFormLoad(object sender, EventArgs e)
         {
             // Set the bounds of the form, fill all the screen
             Bounds = Screen.AllScreens[_thisDisplayIdId].Bounds;
@@ -46,7 +47,7 @@ namespace WebScreenSaver
             _webBrowser.Height = Height;
             _webBrowser.ScriptErrorsSuppressed = true;
             _webBrowser.PreviewKeyDown += webBrowser1_PreviewKeyDown;
-            _webBrowser.DocumentCompleted += webBrowser1_DocumentCompleted;
+            _webBrowser.DocumentCompleted += OnWebBrowserDocumentCompleted;
 
             displayNextPage();
             // The form should be on top of all
@@ -55,14 +56,16 @@ namespace WebScreenSaver
             Cursor.Hide();
         }
 
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void OnWebBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             HtmlDocument doc = _webBrowser.Document;
-            doc.MouseMove += doc_MouseMove;
+            doc.MouseMove += OnDocMouseMove;
         }
 
-        private void doc_MouseMove(object sender, HtmlElementEventArgs e)
+        private void OnDocMouseMove(object sender, HtmlElementEventArgs e)
         {
+            if (!_closeWhenMouseMove)
+                return;
             // If mouseCoords is empty don't close the screen saver
             if (!_mouseCoords.IsEmpty)
             {
@@ -77,7 +80,7 @@ namespace WebScreenSaver
             // Set the new point where the mouse is
             _mouseCoords = new Point(e.MousePosition.X, e.MousePosition.Y);
         }
-
+        
         private void webBrowser1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             // ...close the screen saver
