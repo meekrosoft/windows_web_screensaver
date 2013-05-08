@@ -4,15 +4,21 @@ namespace WebScreenSaver
 {
     internal class UrlList
     {
-        private const string Default = "http://news.ycombinator.com";
-        private readonly List<string> _urlList = new List<string>();
+        private const string DefaultUrl = "http://whatthecommit.com/";
+        private List<string> _urlList = new List<string>();
         private int _listIndex;
+
+        public UrlList()
+        {
+        }
+
+        public UrlList(IEnumerable<string> urls)
+        {
+            Assign(urls);
+        }
 
         public string GetNext()
         {
-            if (_urlList.Count == 0)
-                return Default;
-
             if (_listIndex >= _urlList.Count)
                 _listIndex = 0;
 
@@ -22,6 +28,13 @@ namespace WebScreenSaver
         public void Add(string url)
         {
             _urlList.Add(url);
+        }
+
+        public void Assign(IEnumerable<string> urls)
+        {
+            _urlList = new List<string>(urls);
+            if (_urlList.Count == 0)
+                _urlList.Add(DefaultUrl);
         }
     }
 }
