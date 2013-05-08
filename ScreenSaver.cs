@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -38,10 +39,10 @@ namespace WebScreenSaver
             string configFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), "url.txt");
             if (File.Exists(configFilePath))
             {
-                var urls = File.ReadAllLines(configFilePath);
+                var urls = File.ReadAllLines(configFilePath).Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s));
                 foreach (var url in urls)
                 {
-                    if (!string.IsNullOrEmpty(url.Trim()))
+                    if (!url.StartsWith("#"))
                         urlList.Add(url);
                 }
             }
