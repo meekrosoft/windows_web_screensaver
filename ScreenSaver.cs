@@ -35,7 +35,7 @@ namespace WebScreenSaver
         {
             var urlList = new UrlList();
 
-            string configFilePath = Path.Combine(Assembly.GetCallingAssembly().Location, "url.txt");
+            string configFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), "url.txt");
             if (File.Exists(configFilePath))
             {
                 var urls = File.ReadAllLines(configFilePath);
