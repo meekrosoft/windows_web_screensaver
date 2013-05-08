@@ -15,7 +15,7 @@ namespace WebScreenSaver
         // Store the mouse coordinates
         private Point _mouseCoords;
         private Timer _newPageTimer;
-        private bool _closeWhenMouseMove = false;
+        private bool _closeWhenMouseMove;
 
         internal ScreensaverForm(int thisDisplayId, UrlList urlList)
         {
@@ -23,6 +23,12 @@ namespace WebScreenSaver
             // Assign the number to an accessible variable
             _thisDisplayIdId = thisDisplayId;
             _urlList = urlList;
+        }
+
+        public bool CloseWhenMouseMove
+        {
+            get { return _closeWhenMouseMove; }
+            set { _closeWhenMouseMove = value; }
         }
 
         protected override void Dispose(bool disposing)
@@ -64,7 +70,7 @@ namespace WebScreenSaver
 
         private void OnDocMouseMove(object sender, HtmlElementEventArgs e)
         {
-            if (!_closeWhenMouseMove)
+            if (!CloseWhenMouseMove)
                 return;
             // If mouseCoords is empty don't close the screen saver
             if (!_mouseCoords.IsEmpty)
@@ -97,8 +103,7 @@ namespace WebScreenSaver
         {
             var uri = new Uri(_urlList.GetNext());
             _webBrowser.Navigate(uri);
-            if (_webBrowser.Url == uri)
-                _webBrowser.Refresh();
+            _webBrowser.Refresh();
         }
     }
 }
