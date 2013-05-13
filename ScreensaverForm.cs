@@ -52,10 +52,10 @@ namespace WebScreenSaver
             _webBrowser.Width = Width;
             _webBrowser.Height = Height;
             _webBrowser.ScriptErrorsSuppressed = true;
-            _webBrowser.PreviewKeyDown += webBrowser1_PreviewKeyDown;
+            _webBrowser.PreviewKeyDown += OnWebBrowserPreviewKeyDown;
             _webBrowser.DocumentCompleted += OnWebBrowserDocumentCompleted;
 
-            displayNextPage();
+            DisplayNextPage();
             // The form should be on top of all
             TopMost = true;
             // We don't need the cursor
@@ -87,19 +87,19 @@ namespace WebScreenSaver
             _mouseCoords = new Point(e.MousePosition.X, e.MousePosition.Y);
         }
         
-        private void webBrowser1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void OnWebBrowserPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             // ...close the screen saver
             Close();
         }
 
         // Triggered by timer component every 20 seconds...
-        private void newPageTimerTick(object sender, EventArgs e)
+        private void NewPageTimerTick(object sender, EventArgs e)
         {
-            displayNextPage();
+            DisplayNextPage();
         }
 
-        private void displayNextPage()
+        private void DisplayNextPage()
         {
             var uri = new Uri(_urlList.GetNext());
             _webBrowser.Navigate(uri);

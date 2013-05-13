@@ -106,6 +106,7 @@
   <ItemGroup>
     <Content Include="App.ico" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>

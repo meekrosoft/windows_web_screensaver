@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace WebScreenSaver
@@ -14,6 +10,29 @@ namespace WebScreenSaver
         public ConfigForm()
         {
             InitializeComponent();
+        }
+
+        public IEnumerable<string> Urls
+        {
+            get
+            {
+                return from line in urlText.Text.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                       select line.Trim();
+            }
+            set 
+            {
+                urlText.Clear();
+                foreach (var line in value)
+                {
+                    urlText.AppendText(line + Environment.NewLine);
+                }
+            }
+        }
+
+        public string Path
+        {
+            get { return pathLabel.Text; }
+            set { pathLabel.Text = value; }
         }
     }
 }

@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace WebScreenSaver
@@ -21,8 +17,11 @@ namespace WebScreenSaver
             if (args[0].ToLower().Trim().Substring(0, 2) == "/c")
             {
                 var configForm = new ConfigForm();
+                configForm.Urls = Config.UrlText;
+                configForm.Path = Config.Path;
                 if (configForm.ShowDialog() == DialogResult.OK)
                 {
+                    Config.Save(configForm.Urls);
                 }
             }
             else if (args[0].ToLower() == "/s")
@@ -33,17 +32,7 @@ namespace WebScreenSaver
 
         private static UrlList LoadUrlList()
         {
-            IEnumerable<string> urls = null;
-
-            string configFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), "url.txt");
-            if (File.Exists(configFilePath))
-            {
-                urls = from url in File.ReadAllLines(configFilePath)
-                       where !string.IsNullOrEmpty(url) && !url.Trim().StartsWith("#")
-                       select url.Trim();
-            }
-
-            return new UrlList(urls);
+            return new UrlList(Config.Urls);
         }
 
         private static void StartScreenSaver()

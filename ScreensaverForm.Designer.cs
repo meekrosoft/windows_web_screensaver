@@ -15,14 +15,14 @@ namespace WebScreenSaver
         {
             this.components = new System.ComponentModel.Container();
             this._newPageTimer = new System.Windows.Forms.Timer(this.components);
-            this._webBrowser = new System.Windows.Forms.WebBrowser();
+            this._webBrowser = new WebBrowser();
             this.SuspendLayout();
             // 
             // newPageTimer
             // 
             this._newPageTimer.Enabled = true;
             this._newPageTimer.Interval = 20000;
-            this._newPageTimer.Tick += new System.EventHandler(this.newPageTimerTick);
+            this._newPageTimer.Tick += new System.EventHandler(this.NewPageTimerTick);
             // 
             // _webBrowser
             // 
