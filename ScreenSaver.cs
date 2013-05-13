@@ -16,9 +16,7 @@ namespace WebScreenSaver
 
             if (args[0].ToLower().Trim().Substring(0, 2) == "/c")
             {
-                var configForm = new ConfigForm();
-                configForm.Urls = Config.UrlText;
-                configForm.Path = Config.Path;
+                var configForm = new ConfigForm {Urls = Config.UrlText, Path = Config.Path};
                 if (configForm.ShowDialog() == DialogResult.OK)
                 {
                     Config.Save(configForm.Urls);
