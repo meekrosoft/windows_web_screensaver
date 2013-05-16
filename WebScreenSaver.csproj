@@ -113,7 +113,9 @@
     <Compile Include="ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebpageView.cs" />
+    <Compile Include="WebpageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

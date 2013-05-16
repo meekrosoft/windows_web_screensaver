@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,11 +9,8 @@ namespace WebScreenSaver
         // Store the number of displays
         private readonly int _thisDisplayIdId;
         private readonly WebpageView _view;
-        private WebBrowser _webBrowser;
-        private IContainer components;
         // Store the mouse coordinates
         private Point _mouseCoords;
-        private Timer _newPageTimer;
         private bool _closeWhenMouseMove;
 
         internal ScreensaverForm(int thisDisplayId, WebpageView view)
@@ -23,7 +19,7 @@ namespace WebScreenSaver
             // Assign the number to an accessible variable
             _thisDisplayIdId = thisDisplayId;
             _view = view;
-            this.LostFocus += OnScreensaverFormLostFocus;
+            LostFocus += OnScreensaverFormLostFocus;
         }
 
         void OnScreensaverFormLostFocus(object sender, EventArgs e)
@@ -37,44 +33,31 @@ namespace WebScreenSaver
             set { _closeWhenMouseMove = value; }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-
         private void OnFormLoad(object sender, EventArgs e)
         {
             // Set the bounds of the form, fill all the screen
             Bounds = Screen.AllScreens[_thisDisplayIdId].Bounds;
-            _webBrowser.Left = 0;
-            _webBrowser.Top = 0;
-            _webBrowser.Width = Width;
-            _webBrowser.Height = Height;
-            _webBrowser.ScriptErrorsSuppressed = true;
-            _webBrowser.PreviewKeyDown += OnWebBrowserPreviewKeyDown;
-            _webBrowser.DocumentCompleted += OnWebBrowserDocumentCompleted;
 
-            DisplayNextPage();
+            SuspendLayout();
+            Controls.Add(_view);
+            _view.Left = 0;
+            _view.Top = 0;
+            _view.Width = Width;
+            _view.Height = Height;
+            _view.PreviewKeyDown += OnWebBrowserPreviewKeyDown;
+            _view.MouseMove += OnViewMouseMove;
+            _view.Visible = true;
+            ResumeLayout();
+            //_webBrowser.PreviewKeyDown += OnWebBrowserPreviewKeyDown;
+            //_webBrowser.DocumentCompleted += OnWebBrowserDocumentCompleted;
+
             // The form should be on top of all
             TopMost = true;
             // We don't need the cursor
             Cursor.Hide();
         }
 
-        private void OnWebBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            HtmlDocument doc = _webBrowser.Document;
-            doc.MouseMove += OnDocMouseMove;
-        }
-
-        private void OnDocMouseMove(object sender, HtmlElementEventArgs e)
+        private void OnViewMouseMove(object sender, MouseEventArgs e)
         {
             if (!CloseWhenMouseMove)
                 return;
@@ -82,15 +65,15 @@ namespace WebScreenSaver
             if (!_mouseCoords.IsEmpty)
             {
                 // If the mouse actually moved more than 10 pixes in any direction
-                if (Math.Abs(_mouseCoords.X - e.MousePosition.X) > 10
-                    || Math.Abs(_mouseCoords.Y - e.MousePosition.Y) > 10)
+                if (Math.Abs(_mouseCoords.X - e.X) > 10
+                    || Math.Abs(_mouseCoords.Y - e.Y) > 10)
                 {
                     // Close
                     Close();
                 }
             }
             // Set the new point where the mouse is
-            _mouseCoords = new Point(e.MousePosition.X, e.MousePosition.Y);
+            _mouseCoords = new Point(e.X, e.Y);
         }
         
         private void OnWebBrowserPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -106,9 +89,9 @@ namespace WebScreenSaver
 
         private void DisplayNextPage()
         {
-            var uri = new Uri(_view.GetNext());
-            _webBrowser.Navigate(uri);
-            _webBrowser.Refresh();
+            //var uri = new Uri(_view.GetNext());
+            //_webBrowser.Navigate(uri);
+            //_webBrowser.Refresh();
         }
     }
 }
