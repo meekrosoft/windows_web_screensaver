@@ -1,64 +1,56 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
-namespace ScreenSaver
+namespace WebScreenSaver
 {
-	public class ScreenSaver
-	{
-		[STAThread]
-		static void Main(string[] args)
-		{
-			// If Windows passes arguments...
-			if (args.Length > 0)
-			{
-				// If argument is /c...
-				if (args[0].ToLower().Trim().Substring(0,2) == "/c")
-				{
-					// We will add code here later
-				}
-				// If argument is /s...
-				else if (args[0].ToLower() == "/s")
-				{
-				    StartScreenSaver();
-				}
-			}
-			// If there is no argument just start the screen saver
-			else
-			{
-                StartScreenSaver();
-			}
-		}
-
-        private static UrlList createUrlList()
+    public class ScreenSaver
+    {
+        [STAThread]
+        private static void Main(string[] args)
         {
-            var urlList = new UrlList();
-            urlList.addUrl("http://www.bbc.co.uk/news/");
-            urlList.addUrl("https://www.google.com/news?vanilla=1");
-            urlList.addUrl("http://news.ycombinator.com/");
-            return urlList;
+            if (args.Length <= 0)
+            {
+                StartScreenSaver();
+                return;
+            }
+
+            if (args[0].ToLower().Trim().Substring(0, 2) == "/c")
+            {
+                var configForm = new ConfigForm {Urls = Config.UrlText, Path = Config.Path};
+                if (configForm.ShowDialog() == DialogResult.OK)
+                {
+                    Config.Save(configForm.Urls);
+                }
+            }
+            else if (args[0].ToLower() == "/s")
+            {
+                StartScreenSaver();
+            }
         }
 
-	    private static void StartScreenSaver()
-	    {
+        private static void StartScreenSaver()
+        {
             int screenCount = Screen.AllScreens.Length;
-            ScreensaverForm[] screensaverForms = new ScreensaverForm[screenCount];
-            
+            var screensaverForms = new List<ScreensaverForm>();
+
             // Start the screen saver on all the displays the computer has
-	        for (int x = 0; x < screenCount; x++)
-	        {
-                screensaverForms[x] = new ScreensaverForm(x, createUrlList());
+            for (int x = 0; x < screenCount; x++)
+            {
+                screensaverForms.Add(new ScreensaverForm(x, Config.CurrentView));
                 screensaverForms[x].Show();
-	        }
-            
+            }
+
             while (true)
             {
                 Application.DoEvents();
                 // if any screen is not visible then return
-                for (int x = 0; x < screenCount; x++)
+                if (screensaverForms.Any(t => !t.Visible))
                 {
-                    if (screensaverForms[x].Visible == false) return;
+                    return;
                 }
             }
-	    }
-	}
+        }
+    }
 }

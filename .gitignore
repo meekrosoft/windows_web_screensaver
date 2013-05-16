@@ -5,3 +5,10 @@ LocalTestRun.testrunconfig
 _ReSharper.scrSaver/
 ScreensaverTests/%APPDATA%
 
+/obj
+/bin
+/ScreensaverTests/bin
+/ScreensaverTests/obj
+
+*.suo
+*.suo

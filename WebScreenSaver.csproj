@@ -10,7 +10,7 @@
     <ApplicationIcon>App.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>scrSaver</AssemblyName>
+    <AssemblyName>WebScreenSaver</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -18,7 +18,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>scrSaver</RootNamespace>
+    <RootNamespace>WebScreenSaver</RootNamespace>
     <StartupObject>
     </StartupObject>
     <FileUpgradeFlags>
@@ -106,10 +106,23 @@
   <ItemGroup>
     <Content Include="App.ico" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="ConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigForm.Designer.cs">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebpageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ScreensaverForm.Designer.cs">
+      <DependentUpon>ScreensaverForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UrlList.cs" />
     <Compile Include="ScreensaverForm.cs">
@@ -118,6 +131,9 @@
     <Compile Include="ScreenSaver.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="ConfigForm.resx">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
