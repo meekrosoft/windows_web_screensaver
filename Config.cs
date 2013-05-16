@@ -44,6 +44,14 @@ namespace WebScreenSaver
             get { return new UrlList(Urls); }
         }
 
+        public static WebpageView CurrentView
+        {
+            get
+            {
+                return new WebpageView(UrlList);
+            }
+        }
+
         public static void Save(IEnumerable<string> urls)
         {
             string text = urls.Aggregate(String.Empty, (current, url) => current + (url + Environment.NewLine));

@@ -36,7 +36,7 @@ namespace WebScreenSaver
             // Start the screen saver on all the displays the computer has
             for (int x = 0; x < screenCount; x++)
             {
-                screensaverForms[x] = new ScreensaverForm(x, Config.UrlList);
+                screensaverForms[x] = new ScreensaverForm(x, Config.CurrentView);
                 screensaverForms[x].Show();
             }
 

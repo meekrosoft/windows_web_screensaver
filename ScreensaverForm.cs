@@ -9,7 +9,7 @@ namespace WebScreenSaver
     {
         // Store the number of displays
         private readonly int _thisDisplayIdId;
-        private readonly UrlList _urlList;
+        private readonly WebpageView _view;
         private WebBrowser _webBrowser;
         private IContainer components;
         // Store the mouse coordinates
@@ -17,12 +17,18 @@ namespace WebScreenSaver
         private Timer _newPageTimer;
         private bool _closeWhenMouseMove;
 
-        internal ScreensaverForm(int thisDisplayId, UrlList urlList)
+        internal ScreensaverForm(int thisDisplayId, WebpageView view)
         {
             InitializeComponent();
             // Assign the number to an accessible variable
             _thisDisplayIdId = thisDisplayId;
-            _urlList = urlList;
+            _view = view;
+            this.LostFocus += OnScreensaverFormLostFocus;
+        }
+
+        void OnScreensaverFormLostFocus(object sender, EventArgs e)
+        {
+            Close();
         }
 
         public bool CloseWhenMouseMove
@@ -89,7 +95,6 @@ namespace WebScreenSaver
         
         private void OnWebBrowserPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            // ...close the screen saver
             Close();
         }
 
@@ -101,7 +106,7 @@ namespace WebScreenSaver
 
         private void DisplayNextPage()
         {
-            var uri = new Uri(_urlList.GetNext());
+            var uri = new Uri(_view.GetNext());
             _webBrowser.Navigate(uri);
             _webBrowser.Refresh();
         }
