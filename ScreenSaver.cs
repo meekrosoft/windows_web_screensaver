@@ -28,11 +28,6 @@ namespace WebScreenSaver
             }
         }
 
-        private static UrlList LoadUrlList()
-        {
-            return new UrlList(Config.Urls);
-        }
-
         private static void StartScreenSaver()
         {
             int screenCount = Screen.AllScreens.Length;
@@ -41,7 +36,7 @@ namespace WebScreenSaver
             // Start the screen saver on all the displays the computer has
             for (int x = 0; x < screenCount; x++)
             {
-                screensaverForms[x] = new ScreensaverForm(x, LoadUrlList());
+                screensaverForms[x] = new ScreensaverForm(x, Config.UrlList);
                 screensaverForms[x].Show();
             }
 

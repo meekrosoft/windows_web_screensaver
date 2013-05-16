@@ -39,6 +39,11 @@ namespace WebScreenSaver
             }
         }
 
+        public static UrlList UrlList   
+        {
+            get { return new UrlList(Urls); }
+        }
+
         public static void Save(IEnumerable<string> urls)
         {
             string text = urls.Aggregate(String.Empty, (current, url) => current + (url + Environment.NewLine));
