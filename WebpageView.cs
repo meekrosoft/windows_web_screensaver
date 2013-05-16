@@ -58,7 +58,10 @@ namespace WebScreenSaver
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            DisplayNextPage();
+            if (InvokeRequired)
+                Invoke(new MethodInvoker(() => OnTimerTick(sender, e)));
+            else
+                DisplayNextPage();
         }
 
         private void DisplayNextPage()
