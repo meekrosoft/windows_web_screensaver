@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WebScreenSaver
@@ -31,12 +33,12 @@ namespace WebScreenSaver
         private static void StartScreenSaver()
         {
             int screenCount = Screen.AllScreens.Length;
-            var screensaverForms = new ScreensaverForm[screenCount];
+            var screensaverForms = new List<ScreensaverForm>();
 
             // Start the screen saver on all the displays the computer has
             for (int x = 0; x < screenCount; x++)
             {
-                screensaverForms[x] = new ScreensaverForm(x, Config.CurrentView);
+                screensaverForms.Add(new ScreensaverForm(x, Config.CurrentView));
                 screensaverForms[x].Show();
             }
 
@@ -44,9 +46,9 @@ namespace WebScreenSaver
             {
                 Application.DoEvents();
                 // if any screen is not visible then return
-                for (int x = 0; x < screenCount; x++)
+                if (screensaverForms.Any(t => !t.Visible))
                 {
-                    if (screensaverForms[x].Visible == false) return;
+                    return;
                 }
             }
         }

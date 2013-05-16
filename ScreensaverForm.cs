@@ -19,12 +19,7 @@ namespace WebScreenSaver
             // Assign the number to an accessible variable
             _thisDisplayIdId = thisDisplayId;
             _view = view;
-            LostFocus += OnScreensaverFormLostFocus;
-        }
-
-        void OnScreensaverFormLostFocus(object sender, EventArgs e)
-        {
-            Close();
+            LostFocus += (o, e) => Close();
         }
 
         public bool CloseWhenMouseMove
@@ -48,12 +43,8 @@ namespace WebScreenSaver
             _view.MouseMove += OnViewMouseMove;
             _view.Visible = true;
             ResumeLayout();
-            //_webBrowser.PreviewKeyDown += OnWebBrowserPreviewKeyDown;
-            //_webBrowser.DocumentCompleted += OnWebBrowserDocumentCompleted;
 
-            // The form should be on top of all
             TopMost = true;
-            // We don't need the cursor
             Cursor.Hide();
         }
 
@@ -68,7 +59,6 @@ namespace WebScreenSaver
                 if (Math.Abs(_mouseCoords.X - e.X) > 10
                     || Math.Abs(_mouseCoords.Y - e.Y) > 10)
                 {
-                    // Close
                     Close();
                 }
             }
@@ -79,19 +69,6 @@ namespace WebScreenSaver
         private void OnWebBrowserPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             Close();
-        }
-
-        // Triggered by timer component every 20 seconds...
-        private void NewPageTimerTick(object sender, EventArgs e)
-        {
-            DisplayNextPage();
-        }
-
-        private void DisplayNextPage()
-        {
-            //var uri = new Uri(_view.GetNext());
-            //_webBrowser.Navigate(uri);
-            //_webBrowser.Refresh();
         }
     }
 }
