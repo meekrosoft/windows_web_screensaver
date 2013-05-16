@@ -16,13 +16,15 @@ namespace WebScreenSaver
         {
             get
             {
-                return from line in urlText.Text.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                       select line.Trim();
+                return
+                    from line in
+                        urlText.Text.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                    select line.Trim();
             }
-            set 
+            set
             {
                 urlText.Clear();
-                foreach (var line in value)
+                foreach (string line in value)
                 {
                     urlText.AppendText(line + Environment.NewLine);
                 }

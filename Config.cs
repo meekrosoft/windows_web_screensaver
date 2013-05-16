@@ -6,11 +6,15 @@ using System.Reflection;
 
 namespace WebScreenSaver
 {
-    static internal class Config
+    internal static class Config
     {
         public static string Path
         {
-            get { return System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), "url.txt"); }
+            get
+            {
+                return System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetCallingAssembly().Location),
+                                              "url.txt");
+            }
         }
 
         public static IEnumerable<string> Urls
@@ -39,17 +43,14 @@ namespace WebScreenSaver
             }
         }
 
-        public static UrlList UrlList   
+        public static UrlList UrlList
         {
             get { return new UrlList(Urls); }
         }
 
         public static WebpageView CurrentView
         {
-            get
-            {
-                return new WebpageView(UrlList);
-            }
+            get { return new WebpageView(UrlList); }
         }
 
         public static void Save(IEnumerable<string> urls)

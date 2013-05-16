@@ -11,7 +11,6 @@ namespace WebScreenSaver
         private readonly WebpageView _view;
         // Store the mouse coordinates
         private Point _mouseCoords;
-        private bool _closeWhenMouseMove;
 
         internal ScreensaverForm(int thisDisplayId, WebpageView view)
         {
@@ -22,11 +21,7 @@ namespace WebScreenSaver
             LostFocus += (o, e) => Close();
         }
 
-        public bool CloseWhenMouseMove
-        {
-            get { return _closeWhenMouseMove; }
-            set { _closeWhenMouseMove = value; }
-        }
+        public bool CloseWhenMouseMove { get; set; }
 
         private void OnFormLoad(object sender, EventArgs e)
         {
@@ -65,7 +60,7 @@ namespace WebScreenSaver
             // Set the new point where the mouse is
             _mouseCoords = new Point(e.X, e.Y);
         }
-        
+
         private void OnWebBrowserPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             Close();

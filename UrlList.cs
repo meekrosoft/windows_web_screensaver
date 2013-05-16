@@ -5,8 +5,8 @@ namespace WebScreenSaver
     internal class UrlList
     {
         private const string DefaultUrl = "http://whatthecommit.com/";
-        private List<string> _urlList = new List<string>();
         private int _listIndex;
+        private List<string> _urlList = new List<string>();
 
         public UrlList()
         {
