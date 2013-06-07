@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
+
 [assembly: AssemblyTitle("")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
@@ -56,6 +57,7 @@ using System.Runtime.CompilerServices;
 //
 
 // ADDED MLONG
+
 [assembly: InternalsVisibleTo("ScreensaverTests")]
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]

@@ -64,9 +64,6 @@
     <Compile Include="UrlListTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AuthoringTests.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\WebScreenSaver.csproj">
       <Project>{B1D5F2EF-5F95-4576-BE89-EF526511D9D9}</Project>
       <Name>WebScreenSaver</Name>
