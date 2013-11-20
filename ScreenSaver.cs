@@ -16,7 +16,7 @@ namespace WebScreenSaver
                 return;
             }
 
-            if (args[0].ToLower().Trim().Substring(0, 2) == "/c")
+            if (args[0].ToLower().Trim().StartsWith("/c"))
             {
                 var configForm = new ConfigForm {Urls = Config.UrlText, Path = Config.Path};
                 if (configForm.ShowDialog() == DialogResult.OK)

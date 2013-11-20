@@ -31,7 +31,7 @@ namespace WebScreenSaver
         {
             get
             {
-                IEnumerable<string> urls = null;
+                IEnumerable<string> urls = new List<string>();
 
                 if (File.Exists(Path))
                 {
@@ -39,18 +39,17 @@ namespace WebScreenSaver
                            where !String.IsNullOrEmpty(url)
                            select url.Trim();
                 }
+                else
+                {
+                    File.WriteAllLines(Path, UrlList.DefaultUrls);
+                }
                 return urls;
             }
         }
 
-        public static UrlList UrlList
-        {
-            get { return new UrlList(Urls); }
-        }
-
         public static WebpageView CurrentView
         {
-            get { return new WebpageView(UrlList); }
+            get { return new WebpageView(new UrlList(Urls)); }
         }
 
         public static void Save(IEnumerable<string> urls)

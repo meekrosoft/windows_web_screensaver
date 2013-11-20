@@ -4,7 +4,7 @@ namespace WebScreenSaver
 {
     internal class UrlList
     {
-        private const string DefaultUrl = "http://whatthecommit.com/";
+        static public readonly string[] DefaultUrls = new[] { "http://whatthecommit.com/" };
         private int _listIndex;
         private List<string> _urlList = new List<string>();
 
@@ -34,7 +34,7 @@ namespace WebScreenSaver
         {
             _urlList = new List<string>(urls);
             if (_urlList.Count == 0)
-                _urlList.Add(DefaultUrl);
+                _urlList.AddRange(DefaultUrls);
         }
     }
 }
