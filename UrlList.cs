@@ -4,12 +4,13 @@ namespace WebScreenSaver
 {
     internal class UrlList
     {
-        static public readonly string[] DefaultUrls = new[] { "http://whatthecommit.com/" };
+        static public readonly string[] DefaultUrls = new[] { "http://news.ycombinator.com", "http://whatthecommit.com/" };
         private int _listIndex;
         private List<string> _urlList = new List<string>();
 
         public UrlList()
         {
+            Assign(DefaultUrls);
         }
 
         public UrlList(IEnumerable<string> urls)
