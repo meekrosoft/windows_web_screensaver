@@ -18,7 +18,7 @@ namespace WebScreenSaver
 
             if (args[0].ToLower().Trim().StartsWith("/c"))
             {
-                var configForm = new ConfigForm {Urls = Config.UrlText, Path = Config.Path};
+                var configForm = new ConfigForm {Urls = Config.UrlText, Path = Config.ConfigPath};
                 if (configForm.ShowDialog() == DialogResult.OK)
                 {
                     Config.Save(configForm.Urls);
@@ -38,7 +38,7 @@ namespace WebScreenSaver
             // Start the screen saver on all the displays the computer has
             for (int x = 0; x < screenCount; x++)
             {
-                screensaverForms.Add(new ScreensaverForm(x, Config.CurrentView));
+                screensaverForms.Add(new ScreensaverForm(x, Config.UrlList));
                 screensaverForms[x].Show();
             }
 

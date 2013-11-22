@@ -8,7 +8,16 @@ namespace WebScreenSaver
 {
     internal static class Config
     {
-        public static string Path
+        static private List<string> _urls;
+        public const int Timeout = 10000;
+
+        static Config()
+        { 
+            _urls = Urls;
+            CloseWhenMouseMove = true;
+        }
+
+        public static string ConfigPath
         {
             get
             {
@@ -17,13 +26,13 @@ namespace WebScreenSaver
             }
         }
 
-        public static IEnumerable<string> Urls
+        public static List<string> Urls
         {
             get
             {
-                return from url in UrlText
+                return (from url in UrlText
                        where !url.StartsWith("#")
-                       select url;
+                       select url).ToList();
             }
         }
 
@@ -33,29 +42,28 @@ namespace WebScreenSaver
             {
                 IEnumerable<string> urls = new List<string>();
 
-                if (File.Exists(Path))
+                if (File.Exists(ConfigPath))
                 {
-                    urls = from url in File.ReadAllLines(Path)
+                    urls = from url in File.ReadAllLines(ConfigPath)
                            where !String.IsNullOrEmpty(url)
                            select url.Trim();
                 }
                 else
                 {
-                    File.WriteAllLines(Path, UrlList.DefaultUrls);
+                    File.WriteAllLines(ConfigPath, UrlList.DefaultUrls);
                 }
                 return urls;
             }
         }
 
-        public static WebpageView CurrentView
-        {
-            get { return new WebpageView(new UrlList(Urls)); }
-        }
+        public static UrlList UrlList { get { return new UrlList(_urls); } }
 
         public static void Save(IEnumerable<string> urls)
         {
-            string text = urls.Aggregate(String.Empty, (current, url) => current + (url + Environment.NewLine));
-            File.WriteAllText(Path, text);
+            var text = string.Join(Environment.NewLine, urls.ToArray());
+            File.WriteAllText(ConfigPath, text);
         }
+
+        public static bool CloseWhenMouseMove { get; set; }
     }
 }

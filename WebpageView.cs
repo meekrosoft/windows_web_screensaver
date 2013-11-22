@@ -6,7 +6,7 @@ namespace WebScreenSaver
 {
     internal class WebpageView : UserControl
     {
-        private readonly Timer _timer = new Timer();
+        private readonly Timer _nextPageTimer = new Timer();
         private readonly UrlList _urlList;
         private readonly WebBrowser _webBrowser = new WebBrowser();
 
@@ -20,16 +20,15 @@ namespace WebScreenSaver
             _webBrowser.ScriptErrorsSuppressed = true;
             Controls.Add(_webBrowser);
             _webBrowser.Dock = DockStyle.Fill;
+            Load += OnLoad;
 
-            _timer.Interval = 2000;
-            _timer.Tick += OnTimerTick;
-            _timer.Start();
+            _nextPageTimer.Interval = Config.Timeout;
+            _nextPageTimer.Tick += OnNextPageTimerTimeout;
         }
 
-        private void OnWebBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void OnLoad(object sender, EventArgs e)
         {
-            Debug.Assert(_webBrowser.Document != null, "_webBrowser.Document != null");
-            SubscriptDocumentEvents(_webBrowser.Document);
+            DisplayNextPage();
         }
 
         private void SubscriptDocumentEvents(HtmlDocument doc)
@@ -40,13 +39,12 @@ namespace WebScreenSaver
 
         private void OnDocumentClick(object sender, HtmlElementEventArgs e)
         {
-            _timer.Stop();
             DisplayNextPage();
-            _timer.Start();
         }
 
         private void UnsubscriptDocumentEvents(HtmlDocument doc)
         {
+            doc.Click -= OnDocumentClick;
             doc.MouseMove -= OnDocumentMouseMove;
         }
 
@@ -56,21 +54,28 @@ namespace WebScreenSaver
             OnMouseMove(mouseEventArgs);
         }
 
-        private void OnTimerTick(object sender, EventArgs e)
+        private void OnNextPageTimerTimeout(object sender, EventArgs e)
         {
             if (InvokeRequired)
-                Invoke(new MethodInvoker(() => OnTimerTick(sender, e)));
+                Invoke(new MethodInvoker(() => OnNextPageTimerTimeout(sender, e)));
             else
                 DisplayNextPage();
         }
 
+        private void OnWebBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            Debug.Assert(_webBrowser.Document != null, "_webBrowser.Document != null");
+            SubscriptDocumentEvents(_webBrowser.Document);
+            _nextPageTimer.Start();
+        }
+
         private void DisplayNextPage()
         {
+            _nextPageTimer.Stop();
             if (_webBrowser.Document != null)
                 UnsubscriptDocumentEvents(_webBrowser.Document);
-            var uri = new Uri(_urlList.GetNext());
+            var uri = new Uri(_urlList.GetNext().Url);
             _webBrowser.Navigate(uri);
-            _webBrowser.Refresh();
         }
     }
 }
