@@ -36,5 +36,10 @@ namespace WebScreenSaver
             get { return pathLabel.Text; }
             set { pathLabel.Text = value; }
         }
+
+        private void OnOkButtonClick(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

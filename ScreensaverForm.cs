@@ -12,16 +12,14 @@ namespace WebScreenSaver
         // Store the mouse coordinates
         private Point _mouseCoords;
 
-        internal ScreensaverForm(int thisDisplayId, WebpageView view)
+        public ScreensaverForm(int thisDisplayId, UrlList list)
         {
             InitializeComponent();
             // Assign the number to an accessible variable
             _thisDisplayIdId = thisDisplayId;
-            _view = view;
+            _view = new WebpageView(list);
             LostFocus += (o, e) => Close();
         }
-
-        public bool CloseWhenMouseMove { get; set; }
 
         private void OnFormLoad(object sender, EventArgs e)
         {
@@ -45,7 +43,7 @@ namespace WebScreenSaver
 
         private void OnViewMouseMove(object sender, MouseEventArgs e)
         {
-            if (!CloseWhenMouseMove)
+            if (!Config.CloseWhenMouseMove)
                 return;
             // If mouseCoords is empty don't close the screen saver
             if (!_mouseCoords.IsEmpty)
