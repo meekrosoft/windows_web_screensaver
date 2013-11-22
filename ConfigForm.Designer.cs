@@ -45,6 +45,7 @@ namespace WebScreenSaver
             // 
             // urlText
             // 
+            this.urlText.AcceptsReturn = true;
             this.urlText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -63,6 +64,7 @@ namespace WebScreenSaver
             this.buttonOk.TabIndex = 1;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.OnOkButtonClick);
             // 
             // buttonCancel
             // 
